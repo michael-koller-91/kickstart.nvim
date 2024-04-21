@@ -69,6 +69,10 @@ fork to your machine using one of the commands below, depending on your OS.
 git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 ```
 
+```sh
+git clone git@github.com:michael-koller-91/kickstart.nvim.git ~/.config/nvim
+```
+
 </details>
 
 <details><summary> Windows </summary>
