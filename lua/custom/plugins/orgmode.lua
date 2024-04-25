@@ -1,5 +1,5 @@
 -- Orgmode clone written in Lua for Neovim 0.9+.
--- https://github.com/nvim-orgmode/orgmode?tab=readme-ov-file
+-- https://github.com/nvim-orgmode/orgmode
 
 return {
   'nvim-orgmode/orgmode',
