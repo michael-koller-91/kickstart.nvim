@@ -168,7 +168,9 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Custom keymaps
-vim.keymap.set('n', 'dir', ':NvimTreeOpen<cr>', { desc = 'Open the [DIR]ectory explorer NvimTree' })
+vim.keymap.set('n', '<leader><tab>', ':bprevious<cr>', { desc = 'Go to the previous buffer.' })
+vim.keymap.set('n', '<leader>nd', ':Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
+vim.keymap.set('n', '<leader>nt', ':NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -590,6 +592,8 @@ require('lazy').setup({
           },
         },
       }
+
+      require('lspconfig').vhdl_ls.setup {}
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
