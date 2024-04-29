@@ -168,9 +168,9 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagn
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Custom keymaps
-vim.keymap.set('n', '<leader><tab>', ':bprevious<cr>', { desc = 'Go to the previous buffer.' })
-vim.keymap.set('n', '<leader>nd', ':Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
-vim.keymap.set('n', '<leader>nt', ':NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
+vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the previous buffer.' })
+vim.keymap.set('n', '<leader>nd', '<cmd>Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
+vim.keymap.set('n', '<leader>nt', '<cmd>NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -208,10 +208,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
-
--- Format VHDL files on save.
-local group = vim.api.nvim_create_augroup('VHDL-Formatter', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', { command = ':!vsg --configuration $VSGCONFIG -f <afile> --fix', pattern = { '*.vhd' }, group = group })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -649,7 +645,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = { c = true, cpp = true, vhdl = true }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -663,6 +659,14 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+        vhdl = { 'vsg' },
+      },
+      formatters = {
+        vsg = {
+          command = 'vsg',
+          args = { '-f', '$FILENAME', '--configuration', '$VSGCONFIG', '--output_format', 'vsg', '--fix' },
+          stdin = false,
+        },
       },
     },
   },
