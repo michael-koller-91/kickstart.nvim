@@ -172,7 +172,8 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Custom keymaps
 vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the previous buffer.' })
-vim.keymap.set('n', '<leader>nd', '<cmd>Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
+--vim.keymap.set('n', '<leader>nd', '<cmd>Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
+vim.keymap.set('n', '<leader>nd', '<cmd>Oil<cr>', { desc = '[N]avigate [D]irectory (Oil)' })
 vim.keymap.set('n', '<leader>nt', '<cmd>NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
 
