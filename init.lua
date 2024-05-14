@@ -177,6 +177,51 @@ vim.keymap.set('n', '<leader>nd', '<cmd>Oil<cr>', { desc = '[N]avigate [D]irecto
 vim.keymap.set('n', '<leader>nt', '<cmd>NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
 
+--
+-- A function to open org-links in external programs.
+--
+local on_wsl = os.getenv 'WSL_DISTRO_NAME' -- check if nvim runs in wsl
+local pattern = '%[%[([^%]]+.-)%]'
+-- The function `find_link` extracts the link string of an org-link.
+local find_link = function(line, pos)
+  local links = {}
+  local found_link = nil
+  local position
+  for link in line:gmatch(pattern) do
+    local start_from = #links > 0 and links[#links].to or nil
+    local from, to = line:find(pattern, start_from)
+    local current_pos = { from = from, to = to }
+    if pos >= from and pos <= to then
+      found_link = link
+      position = current_pos
+      break
+    end
+    table.insert(links, current_pos)
+  end
+  if not found_link then
+    return nil
+  end
+  return string.sub(found_link, position.from, position.to)
+end
+-- Find a link under the cursor and open it using xdg-open or wslview,
+-- depending on OS.
+local open_link = function()
+  local line = vim.fn.getline '.'
+  local col = vim.fn.col '.' or 0
+  local link = find_link(line, col)
+  if not link then
+    print 'Did not find a link.'
+  else
+    if on_wsl then
+      vim.cmd('!wslview ' .. link)
+    else
+      vim.cmd('!xdg-open ' .. link)
+    end
+  end
+end
+-- The keymap coresponding to the funcion.
+vim.keymap.set('n', 'gl', open_link, { desc = '[G]o to org [l]ink under cursor.' })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
