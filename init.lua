@@ -186,14 +186,12 @@ local pattern = '%[%[([^%]]+.-)%]'
 local find_link = function(line, pos)
   local links = {}
   local found_link = nil
-  local position
   for link in line:gmatch(pattern) do
     local start_from = #links > 0 and links[#links].to or nil
     local from, to = line:find(pattern, start_from)
     local current_pos = { from = from, to = to }
     if pos >= from and pos <= to then
       found_link = link
-      position = current_pos
       break
     end
     table.insert(links, current_pos)
@@ -201,7 +199,7 @@ local find_link = function(line, pos)
   if not found_link then
     return nil
   end
-  return string.sub(found_link, position.from, position.to)
+  return found_link
 end
 -- Find a link under the cursor and open it using xdg-open or wslview,
 -- depending on OS.
