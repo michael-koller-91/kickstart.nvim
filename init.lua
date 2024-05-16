@@ -172,9 +172,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- Custom keymaps
 vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the previous buffer.' })
---vim.keymap.set('n', '<leader>nd', '<cmd>Ntree<cr>', { desc = '[N]avigate [D]irectory (Ntree)' })
-vim.keymap.set('n', '<leader>nd', '<cmd>Oil<cr>', { desc = '[N]avigate [D]irectory (Oil)' })
-vim.keymap.set('n', '<leader>nt', '<cmd>NvimTreeOpen<cr>', { desc = '[N]avigate [T]ree (NvimTreeOpen)' })
+vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory (Oil)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
 
 --
@@ -218,7 +216,7 @@ local open_link = function()
   end
 end
 -- The keymap coresponding to the funcion.
-vim.keymap.set('n', 'gl', open_link, { desc = '[G]o to org [l]ink under cursor.' })
+vim.keymap.set('n', 'gx', open_link, { desc = 'Open org-link external.' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
