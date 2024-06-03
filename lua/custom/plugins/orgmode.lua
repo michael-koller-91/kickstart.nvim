@@ -11,6 +11,7 @@ return {
       org_agenda_files = '~/orgfiles/**/*',
       org_default_notes_file = '~/orgfiles/refile.org',
       org_todo_keywords = { 'TODO(t)', 'ACTIVE(a)', 'NEEDS-DISCUSSION(e)', 'NEXT(n)', 'REPEATING(r)', 'WAITING(w)', '|', 'CANCELLED(c)', 'DONE(d)' },
+      org_agenda_span = 'month',
     }
 
     -- NOTE: If you are using nvim-treesitter with `ensure_installed = "all"` option
