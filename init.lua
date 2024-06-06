@@ -156,6 +156,7 @@ vim.opt.scrolloff = 10
 
 -- Conceal links (for orgmode)
 vim.opt.conceallevel = 2
+-- vim.opt.concealcursor = 'nc'
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
