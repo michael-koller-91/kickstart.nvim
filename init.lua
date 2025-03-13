@@ -677,6 +677,12 @@ require('lazy').setup({
           end,
         },
       }
+
+      -- Create a command that allows for simple, headless installation.
+      vim.api.nvim_create_user_command("MasonInstallAll", function ()
+        vim.cmd("MasonInstall "..table.concat(ensure_installed, " "))
+      end, {})
+
     end,
   },
 
