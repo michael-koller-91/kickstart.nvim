@@ -658,11 +658,13 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
+      local mason_package_list = {
         'black',
+        'lua-language-server',
         'rust_hdl',
-        'stylua', -- Used to format Lua code
-      })
+        'stylua'
+      }
+      vim.list_extend(ensure_installed, mason_package_list)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
@@ -680,7 +682,7 @@ require('lazy').setup({
 
       -- Create a command that allows for simple, headless installation.
       vim.api.nvim_create_user_command("MasonInstallAll", function ()
-        vim.cmd("MasonInstall "..table.concat(ensure_installed, " "))
+        vim.cmd("MasonInstall "..table.concat(mason_package_list, " "))
       end, {})
 
     end,
