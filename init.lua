@@ -695,7 +695,7 @@ require('lazy').setup({
         'black',
         'lua-language-server',
         'rust_hdl',
-        'stylua'
+        'stylua',
       }
       vim.list_extend(ensure_installed, mason_package_list)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -714,10 +714,9 @@ require('lazy').setup({
       }
 
       -- Create a command that allows for simple, headless installation.
-      vim.api.nvim_create_user_command("MasonInstallAll", function ()
-        vim.cmd("MasonInstall "..table.concat(mason_package_list, " "))
+      vim.api.nvim_create_user_command('MasonInstallAll', function()
+        vim.cmd('MasonInstall ' .. table.concat(mason_package_list, ' '))
       end, {})
-
     end,
   },
 
@@ -933,7 +932,20 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'cpp', 'html', 'lua', 'luadoc', 'markdown', 'python', 'vhdl', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'cpp',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'python',
+        'requirements',
+        'vhdl',
+        'vim',
+        'vimdoc',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
