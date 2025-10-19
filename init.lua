@@ -694,6 +694,7 @@ require('lazy').setup({
       local mason_package_list = {
         'black',
         'lua-language-server',
+        'python-lsp-server',
         'rust_hdl',
         'stylua',
       }
