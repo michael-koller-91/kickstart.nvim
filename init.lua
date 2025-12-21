@@ -102,7 +102,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -175,6 +175,11 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the previous buffer.' })
 vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory (Oil)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
+vim.keymap.set('n', '<leader>m', '<cmd>!./make.sh<cr>', { desc = 'Run make script' })
+
+-- Custom highlighting
+--vim.filetype.add { pattern = { ['.*.qbe'] = 'qbe' } }
+--vim.treesitter.language.register('asm', 'qbefile') -- for now, associate with asm for syntax highlighting until I find a better alternative
 
 --
 -- A function to open org-links in external programs.
@@ -695,6 +700,7 @@ require('lazy').setup({
         'black',
         'lua-language-server',
         'python-lsp-server',
+        'rust-analyzer',
         'rust_hdl',
         'stylua',
       }
