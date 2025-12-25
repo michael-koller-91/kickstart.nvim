@@ -176,6 +176,7 @@ vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the p
 vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory (Oil)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
 vim.keymap.set('n', '<leader>m', '<cmd>!./make.sh<cr>', { desc = 'Run make script' })
+vim.keymap.set('n', '<leader>b', '<cmd>!./build.sh<cr>', { desc = 'Run build script' })
 
 -- Custom highlighting
 --vim.filetype.add { pattern = { ['.*.qbe'] = 'qbe' } }
@@ -683,7 +684,15 @@ require('lazy').setup({
         },
       }
 
-      require('lspconfig').vhdl_ls.setup {}
+      -- Now setup those configurations
+      for name, config in pairs(servers) do
+        local config = config or {}
+        -- This handles overriding only values explicitly passed
+        -- by the server configuration above. Useful when disabling
+        -- certain features of an LSP (for example, turning off formatting for ts_ls)
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(name, config)
+      end
 
       -- Ensure the servers and tools above are installed
       --  To check the current status of installed tools and/or manually install
@@ -707,18 +716,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, mason_package_list)
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      require('mason-lspconfig').setup {
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for tsserver)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+      require('mason-lspconfig').setup {}
 
       -- Create a command that allows for simple, headless installation.
       vim.api.nvim_create_user_command('MasonInstallAll', function()
@@ -938,6 +936,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    branch = 'master',
     opts = {
       ensure_installed = {
         'bash',
