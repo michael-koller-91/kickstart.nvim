@@ -175,8 +175,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('n', '<leader><tab>', '<cmd>bprevious<cr>', { desc = 'Go to the previous buffer.' })
 vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory (Oil)' })
 vim.keymap.set('n', 'git', '<cmd>Neogit<cr>', { desc = 'Neo[GIT]' })
-vim.keymap.set('n', '<leader>m', '<cmd>!./make.sh<cr>', { desc = 'Run make script' })
-vim.keymap.set('n', '<leader>b', '<cmd>!./build.sh<cr>', { desc = 'Run build script' })
+vim.keymap.set('n', '<leader>mr', '<cmd>w<cr><cmd>Recompile<cr>', { desc = 'Recompile' })
+vim.keymap.set('n', '<leader>mdc', '<cmd>DiffviewClose<cr>', { desc = 'Close' })
+vim.keymap.set('n', '<leader>mdo', '<cmd>DiffviewOpen<cr>', { desc = 'Open' })
 
 -- Custom highlighting
 --vim.filetype.add { pattern = { ['.*.qbe'] = 'qbe' } }
@@ -383,6 +384,8 @@ require('lazy').setup({
       spec = {
         { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
         { '<leader>d', group = '[D]ocument' },
+        { '<leader>m', group = '[M]y Commands' },
+        { '<leader>md', group = '[D]iffview' },
         { '<leader>r', group = '[R]ename' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
@@ -952,6 +955,7 @@ require('lazy').setup({
         'vim',
         'vimdoc',
       },
+      -- ignore_install = { 'org' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
